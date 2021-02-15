@@ -3,6 +3,7 @@ package com.ozioma.dindinandroidtest.home
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingComponent
+import androidx.navigation.findNavController
 import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
@@ -47,7 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             )
         }
         binding.cartFab.setOnClickListener {
-
+            it.findNavController().navigate(R.id.action_homeFragment_to_checkoutFragment)
         }
     }
 
