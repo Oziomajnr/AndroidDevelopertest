@@ -4,10 +4,11 @@ import com.airbnb.mvrx.BaseMvRxViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.ViewModelContext
 import com.ozioma.dindinandroidtest.FoodStoreApplication
+import com.ozioma.dindinandroidtest.FoodStoreRepository
 
 class PromoViewModel(
     initialState: PromoState,
-    private val promoRepository: PromoRepository
+    private val promoRepository: FoodStoreRepository
 ) : BaseMvRxViewModel<PromoState>(initialState) {
     init {
         promoRepository.getPromos().execute {

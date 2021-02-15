@@ -2,21 +2,28 @@ package com.ozioma.dindinandroidtest.home.foodmenu
 
 import android.os.Bundle
 import android.view.View
+import com.airbnb.mvrx.activityViewModel
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.ozioma.dindinandroidtest.BaseFragment
 import com.ozioma.dindinandroidtest.R
 import com.ozioma.dindinandroidtest.databinding.FragmentFoodMenuBinding
+import com.ozioma.dindinandroidtest.home.HomeViewModel
 
 class FoodMenuFragment : BaseFragment<FragmentFoodMenuBinding>() {
     private lateinit var foodMenuType: String
     private val foodMenuItemViewModel: FoodMenuViewModel by fragmentViewModel()
-    val adapter = FoodMenuItemAdapter()
+    private val homeViewModel: HomeViewModel by activityViewModel()
+    private val adapter = FoodMenuItemAdapter {
+        homeViewModel.addItemToCart(it)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             foodMenuType = it.getString(FOOD_MENU_TYPE) ?: error("Invalid food menu type passed")
         }
+        foodMenuItemViewModel.getFoodMenuItems(foodMenuType)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

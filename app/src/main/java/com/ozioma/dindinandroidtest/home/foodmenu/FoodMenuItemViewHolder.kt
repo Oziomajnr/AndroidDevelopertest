@@ -13,7 +13,7 @@ class FoodMenuItemViewHolder(parent: ViewGroup) :
     val binding = ViewFoodMenuItemBinding.bind(itemView)
 }
 
-class FoodMenuItemAdapter :
+class FoodMenuItemAdapter(private val onAddToCart: (FoodMenuItem) -> (Unit)) :
     ListAdapter<FoodMenuItem, FoodMenuItemViewHolder>(HashItemCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodMenuItemViewHolder {
         return FoodMenuItemViewHolder(parent)
@@ -21,5 +21,8 @@ class FoodMenuItemAdapter :
 
     override fun onBindViewHolder(holder: FoodMenuItemViewHolder, position: Int) {
         holder.binding.foodMenuItem = getItem(position)
+        holder.binding.price.setOnClickListener {
+            onAddToCart(getItem(position))
+        }
     }
 }
